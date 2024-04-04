@@ -12,7 +12,6 @@ export default class SensorDataSender {
             body: JSON.stringify(this.sensorData),
         })
           
-        console.log(response)
         return response.json()
     }
 

@@ -7,7 +7,16 @@ export default class ParametersDataAccess {
     async getParameters() {
         const result = await Mongo.db
         .collection(collectionName)
-        .find({})
+        .aggregate([
+            {
+                $lookup: {
+                    from: 'cars',
+                    localField: 'carId',
+                    foreignField: '_id',
+                    as: 'carDetails'
+                }
+            }
+        ])
         .toArray()
 
         return result

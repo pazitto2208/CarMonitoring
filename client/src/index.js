@@ -11,9 +11,9 @@ async function main() {
             tyresPressure()
         )
 
-        // console.log({carId: '660e842d951281f01eaca682', ...carParameters})
-
         const sensorDataSender = new SensorDataSender({ carId: '660e842d951281f01eaca682', ...carParameters })
+        console.log(sensorDataSender)
+        
         try {
             const result = await sensorDataSender.http()
             console.log(result)
@@ -21,7 +21,7 @@ async function main() {
             console.log(error)
         }
 
-        await new Promise(resolve => setTimeout(resolve, 3000))
+        await new Promise(resolve => setTimeout(resolve, 10000))
     }
 }
 
