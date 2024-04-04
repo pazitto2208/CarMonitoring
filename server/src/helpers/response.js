@@ -7,11 +7,11 @@ export default class HttpRespose {
         }
     }
 
-    serverError() {
+    serverError(body) {
         return {
             success: false,
             statusCode: 500,
-            body: null
+            body
         }
     }
 
