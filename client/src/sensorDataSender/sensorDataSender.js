@@ -6,7 +6,6 @@ export default class SensorDataSender {
     async http () {
         const response = await fetch('http://localhost:3000/parameters', {
             method: "POST", 
-            mode: "no-cors",
             headers: {
                 "Content-Type": "application/json",
             },

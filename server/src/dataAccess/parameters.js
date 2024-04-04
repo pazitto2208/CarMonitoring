@@ -14,7 +14,6 @@ export default class ParametersDataAccess {
     }
 
     async addCarParameters(data) {
-        data = JSON.parse(data)
         data.carId = new ObjectId(data.carId)
         data.createdAt = new Date()
 
