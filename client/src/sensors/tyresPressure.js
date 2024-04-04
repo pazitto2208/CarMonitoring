@@ -8,5 +8,5 @@ export default function tyresPressure() {
 }
 
 function getRandomPressure() {
-    return (Math.random() * (2.7 - 2.5) + 2.5).toFixed(2)
+    return (Math.random() * (2.6 - 2.5) + 2.5).toFixed(2)
 }

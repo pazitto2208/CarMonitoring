@@ -4,8 +4,8 @@ import ParametersController from '../controllers/parameters.js'
 
 const parametersRouter = express.Router()
 
-const parameteresDataAccess = new ParametersDataAccess()
-const parametersController = new ParametersController(parameteresDataAccess)
+const parametersDataAccess = new ParametersDataAccess()
+const parametersController = new ParametersController(parametersDataAccess)
 
 parametersRouter.get('/', async (req, res) => {
     const { body, statusCode, success } = await parametersController.getParameters()

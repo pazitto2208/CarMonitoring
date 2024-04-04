@@ -1,6 +1,7 @@
-import CarParameters from "./models/parameters.js"
+import CarParameters from "./models/carParameters.js"
 import tyresPressure from "./sensors/tyresPressure.js"
 import speed from './sensors/speed.js'
+import SensorDataSender from "./sensorDataSender/sensorDataSender.js"
 
 async function main() {
     while (true) {
@@ -10,7 +11,10 @@ async function main() {
             tyresPressure()
         )
 
-        console.log(carParameters)
+        // console.log({carId: '660e842d951281f01eaca682', ...carParameters})
+
+        const sensorDataSender = new SensorDataSender({ carId: '660e842d951281f01eaca682', ...carParameters })
+        sensorDataSender.http()
 
         await new Promise(resolve => setTimeout(resolve, 3000))
     }
