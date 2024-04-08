@@ -6,7 +6,6 @@ import { Mongo } from './database/mongo.js'
 import parametersRouter from './routes/parameters.js'
 import carsRouter from './routes/cars.js'
 
-
 config()
 
 async function main() {
@@ -16,7 +15,8 @@ async function main() {
 
     const httpResponse = new HttpRespose()
 
-    const mongoConnection = await Mongo.connect({ mongoConnectionString: process.env.MONGO_CS, mongoDbName: process.env.MONGO_DB_NAME })
+    // const mongoConnection = await Mongo.connect({ mongoConnectionString: process.env.MONGO_CS, mongoDbName: process.env.MONGO_DB_NAME })
+    const mongoConnection = await Mongo.connect({ mongoConnectionString: process.env.MONGO_ATLAS_CS, mongoDbName: process.env.MONGO_DB_NAME })
     console.log(mongoConnection)
 
     const app = express()

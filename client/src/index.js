@@ -12,10 +12,10 @@ async function main() {
         )
 
         const sensorDataSender = new SensorDataSender({ carId: '660e842d951281f01eaca682', ...carParameters })
-        console.log(sensorDataSender)
         
         try {
-            const result = await sensorDataSender.http()
+            // const result = await sensorDataSender.http()
+            const result = await sensorDataSender.mqtt()
             console.log(result)
         } catch (error) {
             console.log(error)
