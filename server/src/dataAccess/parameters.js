@@ -22,7 +22,7 @@ export default class ParametersDataAccess {
         return result
     }
 
-    async addCarParameters(data) {
+    async addCarParameters(data) {        
         data.carId = new ObjectId(data.carId)
         data.createdAt = new Date()
 

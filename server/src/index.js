@@ -1,7 +1,6 @@
 import express from 'express'
 import { config } from 'dotenv'
 import cors from 'cors'
-import HttpRespose from './helpers/response.js'
 import { Mongo } from './database/mongo.js'
 import parametersRouter from './routes/parameters.js'
 import carsRouter from './routes/cars.js'
@@ -12,8 +11,6 @@ async function main() {
 
     const hostname = 'localhost'
     const port = 3000
-
-    const httpResponse = new HttpRespose()
 
     const mongoConnection = await Mongo.connect({ mongoConnectionString: process.env.MONGO_CS, mongoDbName: process.env.MONGO_DB_NAME })
     // const mongoConnection = await Mongo.connect({ mongoConnectionString: process.env.MONGO_ATLAS_CS, mongoDbName: process.env.MONGO_DB_NAME })
