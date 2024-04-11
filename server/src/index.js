@@ -15,8 +15,8 @@ async function main() {
 
     const httpResponse = new HttpRespose()
 
-    // const mongoConnection = await Mongo.connect({ mongoConnectionString: process.env.MONGO_CS, mongoDbName: process.env.MONGO_DB_NAME })
-    const mongoConnection = await Mongo.connect({ mongoConnectionString: process.env.MONGO_ATLAS_CS, mongoDbName: process.env.MONGO_DB_NAME })
+    const mongoConnection = await Mongo.connect({ mongoConnectionString: process.env.MONGO_CS, mongoDbName: process.env.MONGO_DB_NAME })
+    // const mongoConnection = await Mongo.connect({ mongoConnectionString: process.env.MONGO_ATLAS_CS, mongoDbName: process.env.MONGO_DB_NAME })
     console.log(mongoConnection)
 
     const app = express()
@@ -25,7 +25,11 @@ async function main() {
     app.use(cors())
     
     app.get('/', (req, res) => {
-        res.send(httpResponse.ok('Welcome to my Car Project!'))
+        res.send(`
+            <h1>Welcome to Car Monitoring!</h1>
+            <p>Try <a href="/cars">/cars</a> to see cars list.</p>
+            <p>Try <a href="/parameters">/parameters</a> to see cars sensors parameters data.</p>
+        `)
     })
 
     // routes
