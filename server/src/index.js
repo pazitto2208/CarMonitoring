@@ -4,6 +4,9 @@ import cors from 'cors'
 import { Mongo } from './database/mongo.js'
 import parametersRouter from './routes/parameters.js'
 import carsRouter from './routes/cars.js'
+import MqttClient from './mqtt/client.js'
+import ParametersController from './controllers/parameters.js'
+import ParametersDataAccess from './dataAccess/parameters.js'
 
 config()
 
@@ -33,11 +36,23 @@ async function main() {
     app.use('/parameters', parametersRouter)
     app.use('/cars', carsRouter)
     
+    // mqtt 
+
+    const mqttClient = (new MqttClient('cars/#')).client
+
+    mqttClient.on('message', async (topic, message) => {
+        const parametersDataAccess = new ParametersDataAccess()
+        const parametersController = new ParametersController(parametersDataAccess)
+
+        const { body, statusCode, success } = await parametersController.addParameters(JSON.parse(message.toString()))
+        console.log({ body, statusCode, success })
+        // res.status(statusCode).send({ body, statusCode, success })
+
+    })
 
     app.listen(port, () => {
         console.log(`Server running on: http://${hostname}:${port}`)
     })
-
 }
 
 main()
