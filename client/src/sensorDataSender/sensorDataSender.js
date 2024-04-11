@@ -15,7 +15,7 @@ export default class SensorDataSender {
                     },
                     body: JSON.stringify(this.sensorData),
                 })
-                resolve({ success: true, result: response.json(), text: 'Data inserted correctly' })  
+                resolve({ success: true, result: await response.json(), text: 'Data inserted correctly' })  
             } catch (error) {
                 reject({ success: false, result: error, text: 'Error inserting data' })  
             }
