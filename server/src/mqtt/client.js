@@ -8,6 +8,7 @@ export default class MqttClient {
 
         this.client.on('connect', () => { 
             this.client.subscribe(mqttTopic)
+            console.log('Connected to mqtt broker!')
         })
     }
 }

@@ -20,10 +20,12 @@ async function main() {
             tyresPressure()
         )
 
-        const sensorDataSender = new SensorDataSender({ carId: '660e842d951281f01eaca682', ...carParameters })
+        const sensorDataSender = new SensorDataSender({ 
+            carId: '660e842d951281f01eaca682', 
+            ...carParameters }
+        )
         
         try {
-            // const result = await sensorDataSender.http()
             const result = await sensorDataSender.mqtt(client)
             console.log(result)
         } catch (error) {
