@@ -3,9 +3,12 @@ import tyresPressure from "./sensors/tyresPressure.js"
 import speed from './sensors/speed.js'
 import SensorDataSender from "./sensorDataSender/sensorDataSender.js"
 import amqp from 'amqplib'
+import { config } from 'dotenv'
 
+config()
+ 
 async function main() {
-    const amqpConnection = await amqp.connect('amqps://rxlphtod:3QTOe42jj4nZdKVB3eDrYA39rR7O4oTv@crow.rmq.cloudamqp.com/rxlphtod')
+    const amqpConnection = await amqp.connect(process.env.AMQP_CS)
     const amqpClient = await amqpConnection.createChannel()
     
     while (true) {
