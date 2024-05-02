@@ -1,17 +1,10 @@
-import express from 'express'
 import { config } from 'dotenv'
-import cors from 'cors'
 import { Mongo } from './database/mongo.js'
-import parametersRouter from './routes/parameters.js'
-import carsRouter from './routes/cars.js'
+import AmqpClient from './amqp/client.js'
 
 config()
 
 async function main() {
-
-    const hostname = 'localhost'
-    const port = 3000
-
     const mongoConnection = await Mongo.connect({ 
         mongoConnectionString: process.env.MONGO_CS, 
         mongoDbName: process.env.MONGO_DB_NAME 
@@ -22,26 +15,21 @@ async function main() {
     //     mongoDbName: process.env.MONGO_DB_NAME 
     // })
 
-    const app = express()
-
-    app.use(express.json())
-    app.use(cors())
+    const amqpClient = new AmqpClient(process.env.AMQP_CS)
+    const amqpConnection = await amqpClient.connect()
     
-    app.get('/', (req, res) => {
-        res.send(`
-            <h1>Welcome to Car Monitoring!</h1>
-            <p>Try <a href="/cars">/cars</a> to see cars list.</p>
-            <p>Try <a href="/parameters">/parameters</a> to see cars sensors parameters data.</p>
-        `)
+    const queueName = 'Parameters'
+    await amqpConnection.assertQueue(queueName)
+    await amqpConnection.bindQueue(queueName, 'amq.direct')
+
+    await amqpConnection.consume(queueName, (msg) => {
+        if (msg !== null) {
+            console.log(msg.content.toString())
+            amqpConnection.ack(msg)
+        }
     })
 
-    // routes
-    app.use('/parameters', parametersRouter)
-    app.use('/cars', carsRouter)
 
-    app.listen(port, () => {
-        console.log(`Server running on: http://${hostname}:${port}`)
-    })
 }
 
 main()
