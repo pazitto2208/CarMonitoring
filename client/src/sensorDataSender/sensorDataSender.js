@@ -1,5 +1,3 @@
-import mqtt from 'mqtt'
-
 export default class SensorDataSender {
     constructor(sensorData) {
         this.sensorData=sensorData
@@ -23,24 +21,16 @@ export default class SensorDataSender {
     }
 
     // https://www.emqx.io/docs/en/latest/getting-started/getting-started.html
-    mqtt() {
-        return new Promise((resolve, reject) => {
-            const client = mqtt.connect('mqtt://broker.emqx.io:1883', {
-                clientId: `client`,
-                clean: true,
-                username: 'emqx',
-                password: 'public',
-            })
-
-            client.on('connect', () => {
-                // console.log('MQTT connected')
-                client.publish(`cars/${String(this.sensorData.carId)}/parameters`, JSON.stringify(this.sensorData), (err) => {
-                    if (err) {
-                        reject({ success: false, result: err, text: 'Error inserting data' })  
-                    } else {
-                        resolve({ success: true, text: 'Parameters data published to MQTT' })  
-                    }
-                })
+    mqtt(client) {
+        return new Promise((resolve, reject) => { 
+            const topic = `cars/${String(this.sensorData.carId)}/parameters`   
+            const dataToSend = JSON.stringify(this.sensorData)
+            client.publish(topic, dataToSend, (err) => {
+                if (err) {
+                    reject({ success: false, result: err, text: 'Error inserting data' })  
+                } else {
+                    resolve({ success: true, text: 'Parameters data published to MQTT' })  
+                }
             })
         })
     }  

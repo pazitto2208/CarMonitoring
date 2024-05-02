@@ -1,12 +1,9 @@
-import mqtt from 'mqtt'
+import { connect } from 'mqtt'
 
 export default class MqttClient {
     constructor (mqttTopic) {
-        this.client = mqtt.connect('mqtt://broker.emqx.io:1883', {
-            clientId: `server`,
-            clean: true,
-            username: 'emqx',
-            password: 'public',
+        this.client = connect('mqtt://test.mosquitto.org', {
+            clientId: `pazitto_server`,
         })
 
         this.client.on('connect', () => { 

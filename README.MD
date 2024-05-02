@@ -78,13 +78,26 @@ To get started with this project, follow these instructions:
     - HTTP: Sends sensor data to the server using HTTP POST request.
     - MQTT: Publishes sensor data to an MQTT broker.
 
+    ### Sample data
+    {
+        carId: '660e844d951281f01eaca684',
+        speed: 57,
+        tyresPressure: { 
+            frontLeft: 2.59, 
+            frontRight: 2.55, 
+            rearLeft: 2.5, 
+            rearRight: 2.55 
+        }
+    }
+
     To use the HTTP server, you'll need to start both the server and client applications. The HTTP client will send sensor data to the server using HTTP POST requests.
 
-    Follow these steps to set up the MQTT broker using EMQ X, and then start the server and client:
+    Follow these steps to set up the MQTT broker using Mosquitto, and then start the server and client:
 
-    ### Setting up the MQTT Brocker (EMQ X)
-    1. Follow the tutorial to install and run EMQ X MQTT broker 
-    2. Make sure the broker is running and accessible at mqtt://localhost:1883 or the appropriate address and port.
+    ### Setting up the MQTT Brocker (Mosquitto)
+    1. Follow the tutorial to install and run Mosquitto MQTT broker 
+    2. Make sure the broker is running and accessible at mqtt://test.mosquitto.org or the appropriate address and port.
+    3. Topic to subscribe: cars/{carId}/parameters
 
 With both the server and client running, they should be able to communicate successfully.
 

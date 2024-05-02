@@ -32,4 +32,12 @@ export default class ParametersDataAccess {
 
         return result
     }
+
+    async clearAllParameters () {
+        const result = await Mongo.db
+        .collection(collectionName)
+        .deleteMany({})
+        
+        return result
+    }
 }

@@ -24,4 +24,13 @@ export default class ParametersController {
             return this.httpRespose.serverError(error)
         }
     }
+
+    async clearAllParameters () {
+        try {
+            const result = await this.db.clearAllParameters()
+            return this.httpRespose.ok(result)
+        } catch (error) {
+            return this.httpRespose.serverError(error)
+        }
+    }
 }

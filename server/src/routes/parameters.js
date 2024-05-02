@@ -19,4 +19,11 @@ parametersRouter.post('/', async (req, res) => {
     res.status(statusCode).send({ body, statusCode, success })
 })
 
+
+parametersRouter.delete('/', async (req, res) => {
+    const { body, statusCode, success } = await parametersController.clearAllParameters()
+
+    res.status(statusCode).send({ body, statusCode, success })
+})
+
 export default parametersRouter
