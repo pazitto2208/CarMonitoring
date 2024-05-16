@@ -77,6 +77,7 @@ To get started with this project, follow these instructions:
     ### Sending Data to the Server
     - HTTP: Sends sensor data to the server using HTTP POST request.
     - MQTT: Publishes sensor data to an MQTT broker.
+    - AMQP: Publishes sensor data to an AMQP broker (RabbitMQ).
 
     ### Sample data
     {
@@ -98,6 +99,14 @@ To get started with this project, follow these instructions:
     1. Follow the tutorial to install and run Mosquitto MQTT broker 
     2. Make sure the broker is running and accessible at mqtt://test.mosquitto.org or the appropriate address and port.
     3. Topic to subscribe: cars/{carId}/parameters
+
+    Follow these steps to set up the AMQP broker using RabbitMQ, and then start the server and client:
+
+    ### Setting up the AMQP Brocker (RabbitMQ)
+    1. Follow the tutorial to install and run RabbitMQ broker 
+    2. Make sure the broker is running and accessible at https://www.rabbitmq.com or the appropriate address and port.
+    3. Queue name = 'Parameters'
+    4. Exchange = 'amq.direct'
 
 With both the server and client running, they should be able to communicate successfully.
 
